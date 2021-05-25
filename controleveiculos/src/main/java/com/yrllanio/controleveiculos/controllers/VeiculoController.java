@@ -22,18 +22,15 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.yrllanio.controleveiculos.dto.VeiculoDTO;
 import com.yrllanio.controleveiculos.services.VeiculoService;
 
-
 @RestController
 @RequestMapping(value = "/veiculos")
 public class VeiculoController {
-	
+
 	@Autowired
 	private VeiculoService veiculoService;
-	
-	//veiculos e id estão pegando o endpoint on-line
-	
+
 	@GetMapping
-	public ResponseEntity<Page<VeiculoDTO>> buscaPaginada (
+	public ResponseEntity<Page<VeiculoDTO>> buscaPaginada(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "size", defaultValue = "10") Integer size) {
 
@@ -42,26 +39,25 @@ public class VeiculoController {
 		return ResponseEntity.ok().body(lista);
 	}
 
-	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<VeiculoDTO> buscaPorId(@PathVariable Long id) {
 		VeiculoDTO dto = veiculoService.buscaPorId(id);
 		return ResponseEntity.ok(dto);
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<VeiculoDTO> inserir(@Valid @RequestBody VeiculoDTO dto) {
 		dto = veiculoService.inserir(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
 		return ResponseEntity.created(uri).body(dto);
 	}
-	
+
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<VeiculoDTO> atualizar(@PathVariable Long id,@Valid @RequestBody VeiculoDTO dto) {
+	public ResponseEntity<VeiculoDTO> atualizar(@PathVariable Long id, @Valid @RequestBody VeiculoDTO dto) {
 		dto = veiculoService.atualizar(id, dto);
 		return ResponseEntity.ok(dto);
 	}
-	
+
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<VeiculoDTO> deletar(@PathVariable Long id) {
 		veiculoService.deletar(id);

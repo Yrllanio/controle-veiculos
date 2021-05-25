@@ -28,19 +28,42 @@ public class Veiculo implements Serializable {
 	private String modeloDoVeiculo;
 
 	@Column(nullable = false)
-	private String ano;
-	
+	private Integer ano;
+
 	@ManyToMany(mappedBy = "veiculos")
 	private Set<Usuario> usuarios = new HashSet<>();
+
+	private Integer diaDoRodizio;
+
+	private Boolean statusRodizio;
 
 	public Veiculo() {
 	}
 
-	public Veiculo(Long id, String marca, String modeloDoVeiculo, String ano) {
+	public Veiculo(Long id, String marca, String modeloDoVeiculo, Integer ano, Integer diaDoRodizio,
+			Boolean statusRodizio) {
 		this.id = id;
 		this.marca = marca;
 		this.modeloDoVeiculo = modeloDoVeiculo;
 		this.ano = ano;
+		this.diaDoRodizio = diaDoRodizio;
+		this.statusRodizio = statusRodizio;
+	}
+
+	public Integer getDiaDoRodizio() {
+		return diaDoRodizio;
+	}
+
+	public void setDiaDoRodizio(Integer diaDoRodizio) {
+		this.diaDoRodizio = diaDoRodizio;
+	}
+
+	public Boolean getStatusRodizio() {
+		return statusRodizio;
+	}
+
+	public void setStatusRodizio(Boolean statusRodizio) {
+		this.statusRodizio = statusRodizio;
 	}
 
 	public Long getId() {
@@ -67,15 +90,15 @@ public class Veiculo implements Serializable {
 		this.modeloDoVeiculo = modeloDoVeiculo;
 	}
 
-	public String getAno() {
+	public Integer getAno() {
 		return ano;
 	}
 
-	public void setAno(String ano) {
+	public void setAno(Integer ano) {
 		this.ano = ano;
 	}
 
-	public Set<Usuario> getUsuario() {
+	public Set<Usuario> getUsuarios() {
 		return usuarios;
 	}
 

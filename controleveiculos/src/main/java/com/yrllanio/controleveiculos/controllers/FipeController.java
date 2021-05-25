@@ -15,18 +15,8 @@ import com.yrllanio.controleveiculos.repositories.FipeRepository;
 public class FipeController {
 
 	@Autowired
-    private FipeRepository fipeService;	
-	
-//    @GetMapping("/{tipo}/{codMarca}/{codModelo}/{codAno}")
-//    public ResponseEntity<FipeDTO> getTipo(
-//    		@PathVariable("tipo") String tipo,
-//			@PathVariable("codMarca") String codMarca,
-//			@PathVariable("codModelo") String codModelo,
-//			@PathVariable("codAno") String codAno    		
-//    		) {
-//    	FipeDTO listaTipo = fipeService.buscarVeiculoFipe(tipo, codMarca, codModelo, codAno);
-//        return listaTipo != null ? ResponseEntity.ok().body(listaTipo) : ResponseEntity.notFound().build(); 
-//    } 
+    private FipeRepository fipeService;		
+
     
     @GetMapping("/{tipo}")
     public ResponseEntity<List<FipeDTO>> getTipo(@PathVariable("tipo") String tipo) {

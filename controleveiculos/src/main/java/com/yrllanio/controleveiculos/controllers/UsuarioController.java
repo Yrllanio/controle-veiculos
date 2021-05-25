@@ -28,8 +28,7 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioService service;
-	
-	// endpoint com a lista de veiculos cadastrados
+
 	@GetMapping
 	public ResponseEntity<Page<UsuarioDTO>> buscaPaginada(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
@@ -54,7 +53,7 @@ public class UsuarioController {
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<UsuarioDTO> atualizar(@PathVariable Long id,@Valid @RequestBody UsuarioDTO dto) {
+	public ResponseEntity<UsuarioDTO> atualizar(@PathVariable Long id, @Valid @RequestBody UsuarioDTO dto) {
 		dto = service.atualizar(id, dto);
 		return ResponseEntity.ok(dto);
 	}

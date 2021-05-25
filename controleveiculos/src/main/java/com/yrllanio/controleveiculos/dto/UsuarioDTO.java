@@ -14,16 +14,16 @@ import com.yrllanio.controleveiculos.entities.Usuario;
 public class UsuarioDTO {
 
 	private Long id;
-	
+
 	@NotBlank(message = "Campo obrigatório")
 	private String nome;
-	
+
 	@Email(message = "Favor entrar com um email válido")
 	private String email;
-	
+
 	@NotBlank(message = "Campo obrigatório")
 	private String cpf;
-	
+
 	@PastOrPresent(message = "A data não é válida")
 	private Instant dataNascimento;
 
@@ -32,7 +32,8 @@ public class UsuarioDTO {
 	public UsuarioDTO() {
 	}
 
-	public UsuarioDTO(Long id, String nome, String email, String cpf, Instant dataNascimento, List<VeiculoDTO> veiculos) {
+	public UsuarioDTO(Long id, String nome, String email, String cpf, Instant dataNascimento,
+			List<VeiculoDTO> veiculos) {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;

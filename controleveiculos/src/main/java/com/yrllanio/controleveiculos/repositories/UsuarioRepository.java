@@ -10,7 +10,7 @@ import com.yrllanio.controleveiculos.entities.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-	
+
 	@Query("SELECT obj FROM Usuario obj JOIN FETCH obj.veiculos WHERE obj IN :usuarios")
 	List<Usuario> buscaUsuarioComVeiculos(List<Usuario> usuarios);
 }

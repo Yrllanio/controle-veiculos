@@ -22,16 +22,14 @@ import com.yrllanio.controleveiculos.repositories.VeiculoRepository;
 import com.yrllanio.controleveiculos.services.exceptions.DataBaseException;
 import com.yrllanio.controleveiculos.services.exceptions.ServiceNotFoundException;
 
-
 @Service
 public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepositorio;
-	
+
 	@Autowired
 	private VeiculoRepository veiculoRepositorio;
-
 
 	@Transactional(readOnly = true)
 	public Page<UsuarioDTO> buscaTodos(Pageable paginavel) {
@@ -43,38 +41,37 @@ public class UsuarioService {
 	@Transactional(readOnly = true)
 	public UsuarioDTO buscaPorId(Long id) {
 		try {
-		Optional<Usuario> obj = usuarioRepositorio.findById(id);
-		Usuario entidade = obj.orElseThrow(() -> new ServiceNotFoundException ("Entidade não encontrada"));
-		return new UsuarioDTO(entidade);
-		}
-		catch (EntityNotFoundException e) {
-			throw new ServiceNotFoundException("Usuário " + id + " não existe " );
+			Optional<Usuario> obj = usuarioRepositorio.findById(id);
+			Usuario entidade = obj.orElseThrow(() -> new ServiceNotFoundException("Entidade não encontrada"));
+			return new UsuarioDTO(entidade);
+		} catch (EntityNotFoundException e) {
+			throw new ServiceNotFoundException("Usuário " + id + " não existe ");
 		}
 	}
 
 	@Transactional
 	public UsuarioDTO inserir(UsuarioDTO dto) {
 		Usuario entidade = new Usuario();
-		copiaDtoParaEntidade(dto, entidade);		
+		copiaDtoParaEntidade(dto, entidade);
 
 		entidade = usuarioRepositorio.save(entidade);
 		return new UsuarioDTO(entidade);
 	}
 
 	@Transactional
-	public UsuarioDTO atualizar(Long id, UsuarioDTO dto) {		
-		try {			
+	public UsuarioDTO atualizar(Long id, UsuarioDTO dto) {
+		try {
 			Usuario entidade = usuarioRepositorio.getOne(id);
-			copiaDtoParaEntidade(dto, entidade);	
+			copiaDtoParaEntidade(dto, entidade);
 			entidade = usuarioRepositorio.save(entidade);
-			return new UsuarioDTO(entidade);			
-			}	
-			
+			return new UsuarioDTO(entidade);
+		}
+
 		catch (EntityNotFoundException e) {
 			throw new ServiceNotFoundException("Id não encontrado " + id);
 		}
 
-}
+	}
 
 	public void deletar(Long id) {
 		try {
@@ -86,18 +83,19 @@ public class UsuarioService {
 		}
 
 	}
+
 	private void copiaDtoParaEntidade(UsuarioDTO dto, Usuario entidade) {
 		entidade.setNome(dto.getNome());
 		entidade.setEmail(dto.getEmail());
 		entidade.setCpf(dto.getCpf());
 		entidade.setDataNascimento(dto.getDataNascimento());
-		
+
 		entidade.getVeiculos().clear();
 		for (VeiculoDTO veiculoDto : dto.getVeiculos()) {
 			Veiculo veiculo = veiculoRepositorio.getOne(veiculoDto.getId());
 			entidade.getVeiculos().add(veiculo);
 		}
-		
+
 	}
-		
+
 }

@@ -46,7 +46,7 @@ public class VeiculoService {
 	@Transactional
 	public VeiculoDTO inserir(VeiculoDTO dto) {
 		Veiculo entidade = new Veiculo();
-		copiaDtoParaEntidade(dto, entidade);		
+		copiaDtoParaEntidade(dto, entidade);
 
 		entidade = veiculoRepositorio.save(entidade);
 		return new VeiculoDTO(entidade);
@@ -57,7 +57,7 @@ public class VeiculoService {
 	public VeiculoDTO atualizar(Long id, VeiculoDTO dto) {
 		Veiculo entidade = veiculoRepositorio.getOne(id);
 		try {
-			copiaDtoParaEntidade(dto, entidade);	
+			copiaDtoParaEntidade(dto, entidade);
 
 			entidade = veiculoRepositorio.save(entidade);
 			return new VeiculoDTO(entidade);
@@ -82,6 +82,6 @@ public class VeiculoService {
 		entidade.setMarca(dto.getMarca());
 		entidade.setModeloDoVeiculo(dto.getModeloDoVeiculo());
 		entidade.setAno(dto.getAno());
-
 	}
+
 }
